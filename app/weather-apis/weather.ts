@@ -33,7 +33,16 @@ class WeatherAPI {
     return this.fetchData<ForecastData>(url);
   }
 
-  async reverseGeoCode({
+  async getForecast({ lat, lon }: Coordinates): Promise<ForecastData> {
+    const url = this.createUrl(`${API_CONFIG.BASE_URL}/forecast`, {
+      lat: lat.toString(),
+      lon: lon.toString(),
+      units: "metric",
+    });
+    return this.fetchData<ForecastData>(url);
+  }
+
+  async reverseGeocode({
     lat,
     lon,
   }: Coordinates): Promise<GeocodingResponse[]> {
@@ -46,12 +55,12 @@ class WeatherAPI {
   }
 
   async searchLocations(query: string): Promise<GeocodingResponse[]> {
-      const url = this.createUrl(`${API_CONFIG.GEO}/direct`, {
-        q: query,
-        limit: "5",
-      });
-      return this.fetchData<GeocodingResponse[]>(url);
-    }
+    const url = this.createUrl(`${API_CONFIG.GEO}/direct`, {
+      q: query,
+      limit: "5",
+    });
+    return this.fetchData<GeocodingResponse[]>(url);
+  }
 }
 
 export const weatherAPI = new WeatherAPI();

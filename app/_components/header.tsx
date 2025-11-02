@@ -13,7 +13,7 @@ const Header = () => {
         <h1 className="text-4xl font-semibold">Klima</h1>
       </div>
 
-      <div className="px-4">
+      <div className="mr-10">
         {/* toggle theme */}
         <button
           className="
