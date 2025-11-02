@@ -9,6 +9,10 @@ import {
   useReverseGeocodeQuery,
   useWeatherQuery,
 } from "@/hooks/use-weather";
+import { CurrentWeather } from "./current-weather";
+import { WeatherDetails } from "./weather-details";
+import { WeatherForecast } from "./weather-forecast";
+import { HourlyTemperature } from "./hourl-temperature";
 
 const WeatherDashboard = () => {
   const {
@@ -21,6 +25,9 @@ const WeatherDashboard = () => {
   const weatherQuery = useWeatherQuery(coordinates);
   const forecastQuery = useForecastQuery(coordinates);
   const locationQuery = useReverseGeocodeQuery(coordinates);
+
+  console.log(weatherQuery.data)
+  console.log(forecastQuery.data)
 
   const handleRefresh = () => {
     getLocation();
@@ -98,6 +105,23 @@ const WeatherDashboard = () => {
         >
           <RefreshCw className="h-4 w-4" />
         </Button>
+      </div>
+
+      <div className="grid gap-6">
+        <div className="flex flex-col lg:flex-row gap-4">
+          {weatherQuery.data && (
+            <CurrentWeather
+              data={weatherQuery.data} // ✅ now TS knows it's WeatherData
+              locationName={locationName}
+            />
+          )}
+          {forecastQuery.data &&<HourlyTemperature data={forecastQuery.data} />}
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 items-start">
+        { weatherQuery.data&& <WeatherDetails data={weatherQuery.data} />}
+          {forecastQuery.data && <WeatherForecast data={forecastQuery.data} />}
+        </div>
       </div>
     </div>
   );
