@@ -3,6 +3,7 @@
 import { useTheme } from "next-themes";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { useEffect, useState } from "react";
+import CitySearch from "./city-search";
 
 const Header = () => {
   const { theme, setTheme } = useTheme();
@@ -20,7 +21,8 @@ const Header = () => {
         </h1>
       </div>
 
-      <div className="mr-10">
+      <div className="mr-10 flex items-center gap-4">
+        <CitySearch/>
         <button
           className="
             group relative p-3 rounded-full
