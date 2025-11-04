@@ -4,10 +4,12 @@ import { useTheme } from "next-themes";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import CitySearch from "./city-search";
+import { useRouter } from "next/navigation";
 
 const Header = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => setMounted(true), []);
 
@@ -16,7 +18,7 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-2xl py-2 flex items-center justify-between">
       <div className="ml-10">
-        <h1 className="text-4xl font-extrabold tracking-wide">
+        <h1 className="text-4xl font-extrabold tracking-wide cursor-pointer" onClick={() => router.push("/")} >
           <span className="text-black dark:text-white">K</span>lima
         </h1>
       </div>
