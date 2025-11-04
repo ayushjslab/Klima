@@ -27,7 +27,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Toaster/>
+            <Toaster richColors/>
             {children}
           </ThemeProvider>
         </ReactQueryProvider>
