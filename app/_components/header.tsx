@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 import { useTheme } from "next-themes";
@@ -18,13 +19,20 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-2xl py-2 flex items-center justify-between">
       <div className="ml-10">
-        <h1 className="text-4xl font-extrabold tracking-wide cursor-pointer" onClick={() => router.push("/")} >
+        <img
+          src="https://cdn.iconscout.com/icon/premium/png-512-thumb/climate-icon-svg-download-png-12970673.png?f=webp&w=256"
+          alt=""
+        />
+        <h1
+          className="text-4xl font-extrabold tracking-wide cursor-pointer"
+          onClick={() => router.push("/")}
+        >
           <span className="text-black dark:text-white">K</span>lima
         </h1>
       </div>
 
       <div className="mr-10 flex items-center gap-4">
-        <CitySearch/>
+        <CitySearch />
         <button
           className="
             group relative p-3 rounded-full
