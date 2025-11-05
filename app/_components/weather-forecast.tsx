@@ -33,71 +33,90 @@ export function WeatherForecast({ data }: WeatherForecastProps) {
   const nextDays = Object.values(dailyForecasts).slice(1, 6);
   const formatTemp = (temp: number) => `${Math.round(temp)}°`;
 
-  return (
-    <Card className="backdrop-blur-lg bg-white/10 shadow-xl border-white/20">
-      <CardHeader>
-        <CardTitle className="text-center text-lg font-semibold tracking-wide">
-          5-Day Forecast
-        </CardTitle>
-      </CardHeader>
+ return (
+   <Card
+     className="backdrop-blur-lg bg-gradient-to-br from-white/40 to-white/10 
+                    dark:from-white/10 dark:to-black/20 border-none shadow-xl"
+   >
+     <CardHeader>
+       <CardTitle
+         className="text-center text-xl font-bold tracking-wide
+        bg-gradient-to-r from-blue-700 via-cyan-500 to-teal-400 
+        bg-clip-text text-transparent"
+       >
+         5-Day Forecast
+       </CardTitle>
+     </CardHeader>
 
-      <CardContent>
-        <div className="grid gap-4">
-          {nextDays.map((day: any) => (
-            <div
-              key={day.date}
-              className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 p-4 rounded-xl
-                        bg-white/10 border border-white/20 shadow-sm
-                        hover:shadow-md hover:scale-[1.01] transition-all duration-300"
-            >
-              {/* Date + Description */}
-              <div className="flex flex-col items-center md:items-start">
-                <p className="font-medium">
-                  {format(new Date(day.date * 1000), "EEE, MMM d")}
-                </p>
-                <p className="text-sm text-muted-foreground capitalize">
-                  {day.weather.description}
-                </p>
-              </div>
+     <CardContent>
+       <div className="grid gap-5">
+         {nextDays.map((day: any) => (
+           <div
+             key={day.date}
+             className="grid grid-cols-1 md:grid-cols-3 items-center gap-6 p-5 rounded-2xl
+                       bg-white/50 dark:bg-white/5 border border-white/20
+                       shadow-md transition-all duration-300
+                       hover:shadow-2xl hover:scale-[1.03] hover:bg-white/70 dark:hover:bg-white/10"
+           >
+             {/* Date */}
+             <div className="flex flex-col items-center md:items-start text-center md:text-left">
+               <p
+                 className="text-base font-semibold bg-gradient-to-r from-black to-gray-600 
+                            dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
+               >
+                 {format(new Date(day.date * 1000), "EEE, MMM d")}
+               </p>
+               <p className="text-xs opacity-60 capitalize tracking-wide">
+                 {day.weather.description}
+               </p>
+             </div>
 
-              {/* Weather Icon + Temp */}
-              <div className="flex justify-center items-center gap-4">
-                <Image
-                  src={`https://openweathermap.org/img/wn/${day.weather.icon}@2x.png`}
-                  alt={day.weather.description}
-                  width={45}
-                  height={45}
-                />
+             {/* Icon + Temp */}
+             <div className="flex justify-center items-center gap-6">
+               <div
+                 className="p-2 rounded-xl bg-gradient-to-br 
+                              from-gray-200/60 to-gray-100/20 
+                              dark:from-gray-700/20 dark:to-gray-900/40 
+                              shadow-inner transition-all duration-300 group-hover:scale-110"
+               >
+                 <Image
+                   src={`https://openweathermap.org/img/wn/${day.weather.icon}@2x.png`}
+                   alt={day.weather.description}
+                   width={55}
+                   height={55}
+                   className="drop-shadow-md"
+                 />
+               </div>
 
-                <div className="flex gap-3">
-                  <span className="flex items-center text-blue-400 font-semibold">
-                    <ArrowDown className="mr-1 h-4 w-4" />
-                    {formatTemp(day.temp_min)}
-                  </span>
+               <div className="flex gap-4 text-lg font-bold">
+                 <span className="flex items-center gap-1 text-blue-500">
+                   <ArrowDown className="h-5 w-5" />
+                   {formatTemp(day.temp_min)}
+                 </span>
 
-                  <span className="flex items-center text-red-400 font-semibold">
-                    <ArrowUp className="mr-1 h-4 w-4" />
-                    {formatTemp(day.temp_max)}
-                  </span>
-                </div>
-              </div>
+                 <span className="flex items-center gap-1 text-red-500">
+                   <ArrowUp className="h-5 w-5" />
+                   {formatTemp(day.temp_max)}
+                 </span>
+               </div>
+             </div>
 
-              {/* Humidity + Wind */}
-              <div className="flex justify-center md:justify-end gap-4 text-sm">
-                <span className="flex items-center gap-1">
-                  <Droplets className="h-4 w-4 text-blue-400" />
-                  {day.humidity}%
-                </span>
+             {/* Humidity + Wind */}
+             <div className="flex justify-center md:justify-end gap-6 text-sm opacity-80">
+               <span className="flex items-center gap-2">
+                 <Droplets className="h-5 w-5 text-blue-400 drop-shadow-sm" />
+                 {day.humidity}%
+               </span>
 
-                <span className="flex items-center gap-1">
-                  <Wind className="h-4 w-4 text-sky-400" />
-                  {day.wind} m/s
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
-  );
+               <span className="flex items-center gap-2">
+                 <Wind className="h-5 w-5 text-sky-400 drop-shadow-sm" />
+                 {day.wind} m/s
+               </span>
+             </div>
+           </div>
+         ))}
+       </div>
+     </CardContent>
+   </Card>
+ );
 }

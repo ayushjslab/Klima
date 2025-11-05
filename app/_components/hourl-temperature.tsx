@@ -6,6 +6,7 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
+  CartesianGrid,
 } from "recharts";
 import { format } from "date-fns";
 import type { ForecastData } from "@/app/weather-apis/type";
@@ -21,82 +22,89 @@ interface ChartData {
 }
 
 export function HourlyTemperature({ data }: HourlyTemperatureProps) {
-  // Get today's forecast data and format for chart
-
-  const chartData: ChartData[] = data.list
-    .slice(0, 8) // Get next 24 hours (3-hour intervals)
-    .map((item) => ({
-      time: format(new Date(item.dt * 1000), "ha"),
-      temp: Math.round(item.main.temp),
-      feels_like: Math.round(item.main.feels_like),
-    }));
+  const chartData: ChartData[] = data.list.slice(0, 8).map((item) => ({
+    time: format(new Date(item.dt * 1000), "ha"),
+    temp: Math.round(item.main.temp),
+    feels_like: Math.round(item.main.feels_like),
+  }));
 
   return (
-    <Card className="flex-1">
+    <Card className="flex-1 backdrop-blur-md border border-white/10 shadow-xl">
       <CardHeader>
-        <CardTitle>Today&lsquo;s Temperature</CardTitle>
+        <CardTitle className="font-bold text-lg lg:text-xl bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+          Today’s Temperature
+        </CardTitle>
       </CardHeader>
+
       <CardContent>
-        <div className="h-[200px] w-full">
+        <div className="h-[240px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData}>
+              <defs>
+                {/* Gradient For Main Temp Line */}
+                <linearGradient id="tempGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.8} />
+                  <stop offset="100%" stopColor="#3b82f6" stopOpacity={0.2} />
+                </linearGradient>
+              </defs>
+
+              <CartesianGrid stroke="rgba(255,255,255,0.08)" vertical={false} />
+
               <XAxis
                 dataKey="time"
-                stroke="#888888"
+                stroke="rgba(255,255,255,0.6)"
                 fontSize={12}
                 tickLine={false}
                 axisLine={false}
               />
+
               <YAxis
-                stroke="#888888"
+                stroke="rgba(255,255,255,0.6)"
                 fontSize={12}
                 tickLine={false}
                 axisLine={false}
                 tickFormatter={(value) => `${value}°`}
               />
+
               <Tooltip
-                content={({ active, payload }) => {
-                  if (active && payload && payload.length) {
-                    return (
-                      <div className="rounded-lg border bg-background p-2 shadow-sm">
-                        <div className="grid grid-cols-2 gap-2">
-                          <div className="flex flex-col">
-                            <span className="text-[0.70rem] uppercase text-muted-foreground">
-                              Temperature
-                            </span>
-                            <span className="font-bold">
-                              {payload[0].value}°
-                            </span>
-                          </div>
-                          <div className="flex flex-col">
-                            <span className="text-[0.70rem] uppercase text-muted-foreground">
-                              Feels Like
-                            </span>
-                            <span className="font-bold">
-                              {payload[1].value}°
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  }
-                  return null;
-                }}
+                content={({ active, payload }) =>
+                  active && payload && payload.length ? (
+                    <div className="rounded-lg border border-white/20 bg-black/60 backdrop-blur-md p-2 shadow-lg animate-fade-in">
+                      <p className="text-xs text-gray-300">
+                        Feels Like:{" "}
+                        <span className="font-bold text-white">
+                          {payload[1].value}°
+                        </span>
+                      </p>
+                      <p className="text-xs text-gray-300">
+                        Temperature:{" "}
+                        <span className="font-bold text-white">
+                          {payload[0].value}°
+                        </span>
+                      </p>
+                    </div>
+                  ) : null
+                }
               />
+
+              {/* Main Temp Line */}
               <Line
                 type="monotone"
                 dataKey="temp"
-                stroke="#2563eb"
-                strokeWidth={2}
-                dot={false}
+                stroke="url(#tempGradient)"
+                strokeWidth={3}
+                dot={{ r: 3, strokeWidth: 2, fill: "#fff" }}
+                activeDot={{ r: 6 }}
               />
+
+              {/* Feels Like - Dashed */}
               <Line
                 type="monotone"
                 dataKey="feels_like"
-                stroke="#64748b"
+                stroke="#94a3b8"
                 strokeWidth={2}
+                strokeDasharray="4 4"
                 dot={false}
-                strokeDasharray="5 5"
               />
             </LineChart>
           </ResponsiveContainer>

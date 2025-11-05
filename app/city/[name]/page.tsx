@@ -44,7 +44,7 @@ const CityPage = () => {
   return (
     <>
       <Header />
-      <div className="space-y-6 mx-5 mt-2">
+      <div className="space-y-6 m-10">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold tracking-tight">
             {city}, {weatherQuery.data.sys.country}

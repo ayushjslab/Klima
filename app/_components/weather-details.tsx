@@ -51,23 +51,45 @@ export function WeatherDetails({ data }: WeatherDetailsProps) {
   ];
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Weather Details</CardTitle>
+    <Card className="backdrop-blur-md bg-gradient-to-br from-white/40 to-white/10 dark:from-white/10 dark:to-black/20 border-none shadow-xl">
+      <CardHeader className="pb-2">
+        <CardTitle
+          className="text-xl font-bold bg-gradient-to-r from-blue-700 via-cyan-500 to-teal-400 
+        bg-clip-text text-transparent tracking-wide"
+        >
+          Weather Details
+        </CardTitle>
       </CardHeader>
+
       <CardContent>
         <div className="grid gap-6 sm:grid-cols-2">
           {details.map((detail) => (
             <div
               key={detail.title}
-              className="flex items-center gap-3 rounded-lg border p-4"
+              className="flex items-center gap-4 rounded-xl p-4 bg-white/50 dark:bg-white/5 
+                       shadow-md transition-all duration-300 border border-white/20 hover:shadow-2xl 
+                       hover:scale-[1.03] hover:bg-white/70 dark:hover:bg-white/10"
             >
-              <detail.icon className={`h-5 w-5 ${detail.color}`} />
+              <div
+                className="p-3 rounded-lg bg-gradient-to-br from-gray-200/60 to-gray-100/20 
+                             dark:from-gray-700/20 dark:to-gray-900/40 shadow-inner
+                             transition-all duration-300 group-hover:scale-110"
+              >
+                <detail.icon
+                  className={`h-6 w-6 ${detail.color} drop-shadow-md transition-all`}
+                />
+              </div>
+
               <div>
-                <p className="text-sm font-medium leading-none">
+                <p className="text-sm font-semibold opacity-80">
                   {detail.title}
                 </p>
-                <p className="text-sm text-muted-foreground">{detail.value}</p>
+                <p
+                  className="text-base font-semibold bg-gradient-to-r from-black to-gray-600 
+                            dark:from-white dark:to-gray-300 bg-clip-text text-transparent"
+                >
+                  {detail.value}
+                </p>
               </div>
             </div>
           ))}
