@@ -18,16 +18,24 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-2xl py-2 flex items-center justify-between">
-      <div className="ml-10">
+      <div
+        className="ml-10 flex items-center gap-3 cursor-pointer group"
+        onClick={() => router.push("/")}
+      >
         <img
-          src="https://cdn.iconscout.com/icon/premium/png-512-thumb/climate-icon-svg-download-png-12970673.png?f=webp&w=256"
-          alt=""
+          src="https://img.icons8.com/?size=80&id=WxUOcmhwLbCY&format=png"
+          className="h-16 w-16 transition-transform duration-300 group-hover:scale-110 drop-shadow-lg"
+          alt="Klima logo"
         />
+
         <h1
-          className="text-4xl font-extrabold tracking-wide cursor-pointer"
-          onClick={() => router.push("/")}
+          className="text-5xl font-extrabold tracking-tight transition-all duration-300 
+                 bg-gradient-to-r from-black via-blue-600/50 to-cyan-400 
+                 dark:from-white dark:via-blue-300 dark:to-cyan-200
+                 bg-clip-text text-transparent drop-shadow-md 
+                 group-hover:tracking-wider group-hover:drop-shadow-xl"
         >
-          <span className="text-black dark:text-white">K</span>lima
+          Klima
         </h1>
       </div>
 
