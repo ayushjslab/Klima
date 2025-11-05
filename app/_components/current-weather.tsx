@@ -22,7 +22,7 @@ export function CurrentWeather({ data, locationName }: CurrentWeatherProps) {
    <Card
      className="overflow-hidden backdrop-blur-lg bg-gradient-to-br 
                    from-white/40 to-white/10 dark:from-white/10 dark:to-black/20 
-                   border-none shadow-xl"
+                   border shadow-xl"
    >
      <CardContent className="p-8">
        <div className="grid gap-8 md:grid-cols-2">
