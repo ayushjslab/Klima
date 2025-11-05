@@ -8,9 +8,6 @@ import { Toaster } from "@/components/ui/sonner";
 export const metadata: Metadata = {
   title: "Klima",
   description: "Check climate now",
-  icons: {
-    icon: "/klima.png"
-  }
 };
 
 export default function RootLayout({
